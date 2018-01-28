@@ -2,7 +2,14 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 
+const keys = require('./config/keys');
+
 const app = express();
+
+mongoose.Promise = global.Promise;
+mongoose.connect(keys.mongoURI)
+    .then(() => console.log('MongoDB connected...'))
+    .catch(err => console.log(err));
 
 if(process.env.NODE_ENV === 'production'){
     app.use(express.static('client/build'));
