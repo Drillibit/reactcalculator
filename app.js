@@ -11,6 +11,11 @@ mongoose.connect(keys.mongoURI)
     .then(() => console.log('MongoDB connected...'))
     .catch(err => console.log(err));
 
+app.use(bodyParser.json());
+
+//Material route
+require('./routes/material')(app);
+
 if(process.env.NODE_ENV === 'production'){
     app.use(express.static('client/build'));
     const path = require('path');
