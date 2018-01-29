@@ -16,4 +16,13 @@ module.exports = (app) => {
             res.status(422).send(err);
         }
     });
+    
+    app.get('/api/collections', (req, res) => {
+        Material.find({})
+            .then(materials => {
+                res.send({
+                    materials
+                });
+            });
+    });
 };
