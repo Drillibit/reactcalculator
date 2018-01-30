@@ -1,6 +1,6 @@
 const MaterialReducerDefaultState = [];
 
-export default (action, state = MaterialReducerDefaultState) => {
+export default (state = MaterialReducerDefaultState, action) => {
     switch(action.type){
         case 'ADD_MATERIAL':
             return [
