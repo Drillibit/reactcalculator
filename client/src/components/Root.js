@@ -4,7 +4,7 @@ import FormMain from './Form/FormMain';
 const Root = (props) => {
     return (
         <div>
-            <FormMain />
+            <h1>Main component</h1>
         </div>
     );
 };
