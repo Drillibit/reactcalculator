@@ -8,7 +8,7 @@ class Calculator extends Component {
         this.state = {
             material: '',
             space: '',
-            angles: '',
+            angles: 0,
             result: ''
         };
     };
@@ -27,7 +27,7 @@ class Calculator extends Component {
     handleSubmit = (e) => {
         e.preventDefault();
         let angleSum = parseFloat(this.state.angles) * 250;
-        let spaceSum = (parseFloat(this.state.space) * 395) + 75;
+        let spaceSum = (parseFloat(this.state.space) * parseFloat(this.state.material)) + 75;
         let result = angleSum + spaceSum;
         this.setState(() => ({ result }));  
     };
