@@ -1,14 +1,20 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 
 class Calculator extends Component {
     constructor(props){
         super(props);
         this.state = {
+            material: '',
             space: '',
             angles: '',
             result: ''
         };
+    };
+    onMaterialChange = (e) => {
+        const material = e.target.value;
+        this.setState(() => ({ material }));
     };
     onSpaceChange = (e) => {
         const space = e.target.value;
@@ -30,6 +36,12 @@ class Calculator extends Component {
             <div>
                 <h1>Calculator</h1>
                 <form onSubmit={this.handleSubmit}>
+                    <select value={this.state.material} onChange={this.onMaterialChange}>
+                        <option value="0">Выберете материал</option>
+                        {this.props.materials.map((material) => {
+                            return <option key={material._id} value={material.price}>{material.name}</option>
+                        })}
+                    </select>
                     <input 
                         type="text"
                         placeholder="площадь"
@@ -53,4 +65,10 @@ class Calculator extends Component {
 
 };
 
-export default Calculator;
+const mapStateToProps = (state) => {
+    return {
+        materials: state.materials
+    }
+}
+
+export default connect(mapStateToProps)(Calculator);
