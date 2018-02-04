@@ -9,6 +9,7 @@ import Root from './components/Root';
 import Menu from './components/Menu';
 import Form from './components/Form/FormMain';
 import FormMain from './components/Form/FormMain';
+import Calculator from './components/calculator/Calculator';
 
 class App extends Component {
   componentDidMount() {
@@ -22,6 +23,7 @@ class App extends Component {
         <Switch>
           <Route exact path="/" component={Root} />
           <Route path="/form" component={FormMain} />
+          <Route path="/calculator" component={Calculator} />
         </Switch>
         </div>
       </Router>

@@ -6,6 +6,7 @@ const Menu = (props) => {
         <nav>
             <Link to="/">Home</Link>
             <Link to="/form">Form</Link>
+            <Link to="/calculator">Calculator</Link>
         </nav>
     );
 };
