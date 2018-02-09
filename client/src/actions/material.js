@@ -23,7 +23,6 @@ export const startAddMaterial = (materialData = {}) => {
 export const fetchMaterial = () => {
     return async (dispatch) => {
         let res = await axios.get('/api/collections');
-        console.log(res.data);
         res.data.materials.map((material) => {
             dispatch(addMaterial({...material}));
             return material;

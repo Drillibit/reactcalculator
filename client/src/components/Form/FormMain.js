@@ -2,6 +2,7 @@ import React from 'react';
 import Form from './Form';
 import { startAddMaterial } from '../../actions/material';
 import { connect } from 'react-redux';
+import CurrentMat from './CurrentMat';
 
 const FormMain = (props) => {
     return (
@@ -11,6 +12,7 @@ const FormMain = (props) => {
                     props.dispatch(startAddMaterial(material));
                 }}
             />
+            <CurrentMat />
         </div>
     );
 };

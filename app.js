@@ -15,6 +15,8 @@ app.use(bodyParser.json());
 
 //Material route
 require('./routes/material')(app);
+//Branch route
+require('./routes/branches')(app);
 
 if(process.env.NODE_ENV === 'production'){
     app.use(express.static('client/build'));
