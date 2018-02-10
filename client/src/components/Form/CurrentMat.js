@@ -18,7 +18,8 @@ const CurrentMat = (props) => {
 
 const mapStateToProps = (state) => {
     return {
-        materials: state.materials
+        materials: state.materials,
+        branches: state.branches
     }
 }
 
