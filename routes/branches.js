@@ -8,11 +8,11 @@ module.exports = (app) => {
         const branch = new Branch({
             branchName: req.body.branchName,
             anglePrice: req.body.anglePrice,
-            materials: [req.body.materials],
             cutPrice: req.body.cutPrice,
             customStitch: req.body.customStitch,
             stitchAlignment: req.body.stitchAlignment,
-            multiMaterial: req.body.multiMaterial
+            multiMaterial: req.body.multiMaterial,
+            curvePrice: req.body.curvePrice
         });
         try {
             await branch.save();
@@ -22,8 +22,17 @@ module.exports = (app) => {
         }
     });
 
-    app.get('/api/collections', async (req, res) => {
-        const brancheData = await Branch.find({});
-           res.send(brancheData);
-        });
+    // app.get('/api/collections', async (req, res) => {
+    //     const brancheData = await Branch.find({});
+    //        res.send(brancheData);
+    //     });
+
+    app.get('/api/branches', (req, res) => {
+        Branch.find({})
+            .then(branches => {
+                res.send({
+                    branches
+                });
+            });
+    });
 };

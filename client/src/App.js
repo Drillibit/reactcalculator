@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import * as actions from './actions/material';
+import * as actions from './actions/fetchData';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import './App.css';
 
@@ -11,9 +11,11 @@ import Form from './components/Form/FormMain';
 import FormMain from './components/Form/FormMain';
 import Calculator from './components/calculator/Calculator';
 
+import BranchFormMain from './components/BranchForm/BranchFormMain';
+
 class App extends Component {
   componentDidMount() {
-    this.props.fetchMaterial()
+    this.props.fetchData()
   };
   render() {
     return (
@@ -24,6 +26,7 @@ class App extends Component {
           <Route exact path="/" component={Root} />
           <Route path="/form" component={FormMain} />
           <Route path="/calculator" component={Calculator} />
+          <Route path="/branch-form" component={BranchFormMain} />
         </Switch>
         </div>
       </Router>

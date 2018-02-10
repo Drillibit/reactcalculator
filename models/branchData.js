@@ -1,15 +1,14 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
-const materialSchema = require('./material');
 
 const branchDataSchema = new Schema({
     branchName: String,
-    anglePrice: String,
-    materials: [materialSchema],
-    cutPrice: String,
-    customStitch: String,
-    stitchAlignment: String,
-    multiMaterial: String
+    anglePrice: Number,
+    cutPrice: Number,
+    customStitch: Number,
+    stitchAlignment: Number,
+    multiMaterial: Number,
+    curvePrice: Number
 });
 
 mongoose.model('branches', branchDataSchema);

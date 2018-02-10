@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const addMaterial = (material) => ({
+export const addMaterial = (material) => ({
     type: 'ADD_MATERIAL',
     material
 });
@@ -20,12 +20,12 @@ export const startAddMaterial = (materialData = {}) => {
     };
 };
 
-export const fetchMaterial = () => {
-    return async (dispatch) => {
-        let res = await axios.get('/api/collections');
-        res.data.materials.map((material) => {
-            dispatch(addMaterial({...material}));
-            return material;
-        });
-    };
-};
+// export const fetchMaterial = () => {
+//     return async (dispatch) => {
+//         let res = await axios.get('/api/collections');
+//         res.data.materials.map((material) => {
+//             dispatch(addMaterial({...material}));
+//             return material;
+//         });
+//     };
+// };
