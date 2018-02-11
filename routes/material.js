@@ -6,6 +6,7 @@ const Material = mongoose.model('materials');
 module.exports = (app) => {
     app.post('/api/materials', async (req, res) => {
         const material = new Material({
+            branch: req.body.branch,
             name: req.body.name,
             price: req.body.price
         });

@@ -6,6 +6,7 @@ class SingleBranch extends Component {
     constructor(props){
         super(props);
         this.state = {
+            space: 0,
             angle: 0,
             curve: 0,
             cut: 0,
@@ -14,6 +15,10 @@ class SingleBranch extends Component {
             multiMaterial: 0,
             result: 0
         };
+    };
+    onSpaceChange = (e) => {
+        const space = e.target.value;
+        this.setState(() => ({ space }));
     };
     onMultiMaterialChange = (e) => {
         const multiMaterial = e.target.value;
@@ -39,6 +44,11 @@ class SingleBranch extends Component {
         const angle = e.target.value;
         this.setState(() => ({ angle }));
     };
+    // handleSubmit = (e) => {
+    //     e.preventDefault();
+    //     let raw = this.state.space * this.state.material;
+    //     let angleSum = ((this.state.angle > 4) ? ((this.state.angle - 4) * this.))
+    // };
 
     render(){
         //stores initial branch data
@@ -50,7 +60,28 @@ class SingleBranch extends Component {
                     <div className="wrapper">
                         <div className="container">
                             <div className="group">
-
+                                <select value={this.state.material} onChange={this.onMaterialChange}>
+                                    <option value="0">Выберете материал</option>
+                                    {this.props.materials.map((material) => {
+                                        return (material.branch === data.branchName) ? (<option key={material._id} value={material.price}>{material.name}</option>) : '';
+                                    })}
+                                </select>
+                            </div>
+                            <div className="group">
+                                <label>Площадь</label>    
+                                <input
+                                    type="text"
+                                    placeholder="площадь"
+                                    value={this.state.space}
+                                    onChange={this.onSpaceChange}
+                                />
+                                <label>Углы</label>
+                                <input
+                                    type="text"
+                                    placeholder="углы"
+                                    value={this.state.angles}
+                                    onChange={this.onAngleChange}
+                                />
                             </div>
                             <div className="group">
                                 <label>Углы {data.anglePrice}:</label>
@@ -109,4 +140,10 @@ class SingleBranch extends Component {
     }
 };
 
-export default SingleBranch;
+const mapStateToProps = (state) => {
+    return {
+        materials: state.materials
+    }
+}
+
+export default connect(mapStateToProps)(SingleBranch);

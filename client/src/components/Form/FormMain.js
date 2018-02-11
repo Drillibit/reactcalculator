@@ -8,6 +8,7 @@ const FormMain = (props) => {
     return (
         <div>
             <Form 
+                data={props.branches}
                 onSubmit={(material) => {
                     props.dispatch(startAddMaterial(material));
                 }}
@@ -17,4 +18,10 @@ const FormMain = (props) => {
     );
 };
 
-export default connect()(FormMain);
+const mapStateToProps = (state) => {
+    return {
+        branches: state.branches
+    }
+}
+
+export default connect(mapStateToProps)(FormMain);

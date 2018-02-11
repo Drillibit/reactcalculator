@@ -8,10 +8,12 @@ export const addMaterial = (material) => ({
 export const startAddMaterial = (materialData = {}) => {
     return async (dispatch) => {
         const {
+            branch = '',
             name = '',
             price = 0
         } = materialData;
         const material = {
+            branch,
             name,
             price
         };
