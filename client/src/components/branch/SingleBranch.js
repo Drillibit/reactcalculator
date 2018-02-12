@@ -6,6 +6,7 @@ class SingleBranch extends Component {
     constructor(props){
         super(props);
         this.state = {
+            material: 0,
             space: 0,
             angle: 0,
             curve: 0,
@@ -15,6 +16,10 @@ class SingleBranch extends Component {
             multiMaterial: 0,
             result: 0
         };
+    };
+    onMaterialChange = (e) => {
+        const material = e.target.value;
+        this.setState(() => ({ material }));
     };
     onSpaceChange = (e) => {
         const space = e.target.value;
@@ -44,11 +49,22 @@ class SingleBranch extends Component {
         const angle = e.target.value;
         this.setState(() => ({ angle }));
     };
-    // handleSubmit = (e) => {
-    //     e.preventDefault();
-    //     let raw = this.state.space * this.state.material;
-    //     let angleSum = ((this.state.angle > 4) ? ((this.state.angle - 4) * this.))
-    // };
+    handleSubmit = (e) => {
+        const data = { ...this.props.location.state };
+        e.preventDefault();
+        let raw = parseFloat(this.state.space) * parseFloat(this.state.material);
+        console.log(raw)
+        // let angleSum = this.state.angle * data.anglePrice;
+        let angleSum = (this.state.angle > 4) ? ((this.state.angle - 4) * data.anglePrice) : 0;
+        let additional = raw + ((raw * (data.customStitch / 100)) + (raw * (data.stitchAlignment / 100)) + (raw * (data.multiMaterial / 100)))
+        let cut = this.state.cut * data.cutPrice;
+        let curve = this.state.curve * data.curvePrice;
+        let res = additional + angleSum + cut + curve;
+        console.log(res);
+        let result = Math.ceil(parseFloat(res));
+        console.log(result);
+        this.setState(() => ({ result }));
+    };
 
     render(){
         //stores initial branch data
@@ -59,11 +75,12 @@ class SingleBranch extends Component {
                 <section>
                     <div className="wrapper">
                         <div className="container">
+                            <form onSubmit={this.handleSubmit}>
                             <div className="group">
                                 <select value={this.state.material} onChange={this.onMaterialChange}>
                                     <option value="0">Выберете материал</option>
                                     {this.props.materials.map((material) => {
-                                        return (material.branch === data.branchName) ? (<option key={material._id} value={material.price}>{material.name}</option>) : '';
+                                        return (material.branch === data.branchName) ? (<option key={material._id} value={material.price}>{material.name} {material.price}тг </option>) : '';
                                     })}
                                 </select>
                             </div>
@@ -83,14 +100,7 @@ class SingleBranch extends Component {
                                     onChange={this.onAngleChange}
                                 />
                             </div>
-                            <div className="group">
-                                <label>Углы {data.anglePrice}:</label>
-                                <input 
-                                    type="number" 
-                                    value={this.state.angle}
-                                    onChange={this.onAngleChange} 
-                                />
-                            </div>
+                            
                             <div className="group">
                                 <label>Кривая {data.curvePrice}:</label>
                                 <input 
@@ -131,6 +141,8 @@ class SingleBranch extends Component {
                                     value={this.state.multiMaterial} 
                                     onChange={this.onMultiMaterialChange} />
                             </div>
+                            <button>Рассчитать</button>
+                            </form>
                         </div>
                         <p>Результат: {this.state.result}</p>
                     </div>
