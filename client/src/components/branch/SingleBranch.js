@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 class SingleBranch extends Component {
-    // const state = {...props.location.state};
     constructor(props){
         super(props);
         this.state = {
@@ -14,8 +13,13 @@ class SingleBranch extends Component {
             customStitch: 0,
             stitchAlignment: 0,
             multiMaterial: 0,
+            discount: 'price' || '',
             result: 0
         };
+    };
+    onDiscountChange = (e) => {
+        const discount = e.target.value;
+        this.setState(() => ({ discount }));
     };
     onMaterialChange = (e) => {
         const material = e.target.value;
@@ -76,16 +80,50 @@ class SingleBranch extends Component {
                     <div className="wrapper">
                         <div className="container">
                             <form onSubmit={this.handleSubmit}>
+                                <div className="group">
+                                    <label>Обычный</label>
+                                    <input
+                                        type="radio"
+                                        value="price"
+                                        checked={this.state.discount === 'price'}
+                                        onChange={this.onDiscountChange}
+                                    />
+                                    <label>Золото</label>
+                                    <input
+                                        type="radio"
+                                        value="priceGold"
+                                        checked={this.state.discount === 'priceGold'}
+                                        onChange={this.onDiscountChange}
+                                    />
+                                    <label>Платина</label>
+                                    <input
+                                        type="radio"
+                                        value="pricePlatinum"
+                                        checked={this.state.discount === 'pricePlatinum'}
+                                        onChange={this.onDiscountChange}
+                                    />
+                                </div>
                             <div className="group">
                                 <select value={this.state.material} onChange={this.onMaterialChange}>
                                     <option value="0">Выберете материал</option>
                                     {this.props.materials.map((material) => {
-                                        return (material.branch === data.branchName) ? (<option key={material._id} value={material.price}>{material.name} {material.price}тг </option>) : '';
+                                        return (material.branch === data.branchName) ? (<option 
+                                            key={material._id} 
+                                            value={
+                                                this.state.discount === 'priceGold' ? material.priceGold :
+                                                this.state.discount === 'pricePlatinum' ? material.pricePlatinum : material.price
+                                            }>
+                                                {material.name} 
+                                                {
+                                                    this.state.discount === 'priceGold' ? material.priceGold :
+                                                    this.state.discount === 'pricePlatinum' ? material.pricePlatinum : material.price
+                                                }тг 
+                                            </option>) : '';
                                     })}
                                 </select>
                             </div>
                             <div className="group">
-                                <label>Площадь</label>    
+                                <label>Площадь</label>
                                 <input
                                     type="text"
                                     placeholder="площадь"
@@ -100,45 +138,45 @@ class SingleBranch extends Component {
                                     onChange={this.onAngleChange}
                                 />
                             </div>
-                            
+
                             <div className="group">
                                 <label>Кривая {data.curvePrice}:</label>
-                                <input 
+                                <input
                                     type="number"
                                     value={this.state.curve}
-                                    onChange={this.onCurveChange} 
+                                    onChange={this.onCurveChange}
                                 />
                             </div>
-                            
+
                             <div className="group">
                                 <label>Вырез {data.cutPrice}:</label>
-                                <input 
-                                    type="number" 
-                                    value={this.state.cut} 
+                                <input
+                                    type="number"
+                                    value={this.state.cut}
                                     onChange={this.onCutChange}
                                 />
                             </div>
                             <div className="group">
                                 <label>Заданный шов {data.customStitch}:</label>
-                                <input 
-                                    type="number" 
+                                <input
+                                    type="number"
                                     value={this.state.customStitch}
-                                    onChange={this.onCustomStitchChange} 
+                                    onChange={this.onCustomStitchChange}
                                 />
                             </div>
                             <div className="group">
                                 <label>Центровка швов {data.stitchAlignment}:</label>
-                                <input 
-                                    type="number" 
+                                <input
+                                    type="number"
                                     value={this.state.stitchAlignment}
-                                    onChange={this.onStitchAlignmentChange} 
+                                    onChange={this.onStitchAlignmentChange}
                                 />
                             </div>
                             <div className="group">
                                 <label>Многофактурность {data.multiMaterial}:</label>
-                                <input 
-                                    type="number" 
-                                    value={this.state.multiMaterial} 
+                                <input
+                                    type="number"
+                                    value={this.state.multiMaterial}
                                     onChange={this.onMultiMaterialChange} />
                             </div>
                             <button>Рассчитать</button>

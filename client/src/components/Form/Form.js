@@ -37,7 +37,13 @@ class Form extends Component {
         if(!this.state.branch || !this.state.name || !this.state.price){
             this.setState(() => ({error: 'Пожалуйста заполните все поля'}));
         } else {
-            this.setState(() => ({error: ''}));
+            this.setState(() => ({
+                name: '',
+                price: 0,
+                priceGold: 0,
+                pricePlatinum: 0,
+                error: ''
+            }));
             this.props.onSubmit({
                 branch: this.state.branch,
                 name: this.state.name,
