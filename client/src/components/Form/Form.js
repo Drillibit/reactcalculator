@@ -7,8 +7,18 @@ class Form extends Component {
             branch: props.material ? props.material.branch : '',
             name: props.material ? props.material.name : '',
             price: props.material ? props.material.price : '',
+            priceGold: props.material ? props.material.priceGold : '',
+            pricePlatinum: props.material ? props.material.pricePlatinum : '',
             error: ''
         }
+    }
+    onPricePlatinumChange = (e) => {
+        const pricePlatinum = e.target.value;
+        this.setState(() => ({ pricePlatinum }));
+    }
+    onPriceGoldChange = (e) => {
+        const priceGold = e.target.value;
+        this.setState(() => ({ priceGold }));
     }
     onBranchChange = (e) => {
         const branch = e.target.value;
@@ -31,7 +41,9 @@ class Form extends Component {
             this.props.onSubmit({
                 branch: this.state.branch,
                 name: this.state.name,
-                price: this.state.price
+                price: this.state.price,
+                priceGold: this.state.priceGold,
+                pricePlatinum: this.state.pricePlatinum
             });
         }
     };
@@ -53,12 +65,26 @@ class Form extends Component {
                         value={this.state.name}
                         onChange={this.onNameChange}
                     />
-                    <input 
-                        type="text"
-                        placeholder="Цена"
-                        value={this.state.price}
-                        onChange={this.onPriceChange}
-                    />
+                    <div>
+                        <input 
+                            type="number"
+                            placeholder="Цена"
+                            value={this.state.price}
+                            onChange={this.onPriceChange}
+                        />
+                        <input 
+                            type="number"
+                            placeholder="Золото"
+                            value={this.state.priceGold}
+                            onChange={this.onPriceGoldChange}
+                        />
+                        <input 
+                            type="number"
+                            placeholder="Платина"
+                            value={this.state.pricePlatinum}
+                            onChange={this.onPricePlatinumChange}
+                        />
+                    </div>
                     <button>
                         Добавить Материал
                     </button>

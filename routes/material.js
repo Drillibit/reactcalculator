@@ -8,7 +8,9 @@ module.exports = (app) => {
         const material = new Material({
             branch: req.body.branch,
             name: req.body.name,
-            price: req.body.price
+            price: req.body.price,
+            priceGold: req.body.priceGold,
+            pricePlatinum: req.body.pricePlatinum
         });
         try {
             await material.save();

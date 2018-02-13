@@ -10,12 +10,16 @@ export const startAddMaterial = (materialData = {}) => {
         const {
             branch = '',
             name = '',
-            price = 0
+            price = 0,
+            priceGold = 0,
+            pricePlatinum = 0
         } = materialData;
         const material = {
             branch,
             name,
-            price
+            price,
+            priceGold,
+            pricePlatinum
         };
         let res = await axios.post('/api/materials', material);
         dispatch(addMaterial({...res.data}));
