@@ -8,7 +8,8 @@ const branchDataSchema = new Schema({
     customStitch: Number,
     stitchAlignment: Number,
     multiMaterial: Number,
-    curvePrice: Number
+    curvePrice: Number,
+    packPrice: Number
 });
 
 mongoose.model('branches', branchDataSchema);

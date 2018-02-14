@@ -12,8 +12,13 @@ class Form extends Component {
             stitchAlignment: props.branch ? props.branch.stitchAlignment : '',
             multiMaterial: props.branch ? props.branch.multiMaterial : '',
             curvePrice: props.branch ? props.barnch.curvePrice : '',
+            packPrice: props.branch ? props.branch.packPrice : '',
             error: ''
         };
+    }
+    onPackPriceChange = (e) => {
+        const packPrice = e.target.value;
+        this.setState(() => ({ packPrice }));
     }
     onCurvePriceChange = (e) => {
         const curvePrice = e.target.value;
@@ -61,7 +66,9 @@ class Form extends Component {
             || 
             !this.state.stitchAlignment
             ||
-            !this.state.curvePrice){
+            !this.state.curvePrice
+            ||
+            !this.state.packPrice){
             this.setState(() => ({ error: 'Пожалуйста заполните все поля' }));
         } else {
             this.setState(() => ({ error: ''}));
@@ -69,10 +76,11 @@ class Form extends Component {
                 branchName: this.state.branchName,
                 anglePrice: this.state.anglePrice,
                 cutPrice: this.state.cutPrice,
-                customStitch: this.state.cutPrice,
+                customStitch: this.state.customStitch,
                 stitchAlignment: this.state.stitchAlignment,
                 multiMaterial: this.state.multiMaterial,
-                curvePrice: this.state.curvePrice
+                curvePrice: this.state.curvePrice,
+                packPrice: this.state.packPrice
             })
         }
     };
@@ -108,6 +116,15 @@ class Form extends Component {
                             placeholder="Вырез"
                             value={this.state.cutPrice}
                             onChange={this.onCutPriceChange}
+                        />
+                    </div>
+                    <div>
+                        <label>Стоимость Упаковки</label>
+                        <input
+                            type="number"
+                            placeholder="Упаковка"
+                            value={this.state.packPrice}
+                            onChange={this.onPackPriceChange}
                         />
                     </div>
                     <div>

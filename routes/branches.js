@@ -12,7 +12,8 @@ module.exports = (app) => {
             customStitch: req.body.customStitch,
             stitchAlignment: req.body.stitchAlignment,
             multiMaterial: req.body.multiMaterial,
-            curvePrice: req.body.curvePrice
+            curvePrice: req.body.curvePrice,
+            packPrice: req.body.packPrice
         });
         try {
             await branch.save();

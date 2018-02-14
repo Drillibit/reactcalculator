@@ -10,9 +10,9 @@ class SingleBranch extends Component {
             angle: 0,
             curve: 0,
             cut: 0,
-            customStitch: 0,
-            stitchAlignment: 0,
-            multiMaterial: 0,
+            customStitch: "no" || '',
+            stitchAlignment: "no" || '',
+            multiMaterial: "no" || '',
             discount: 'price' || '',
             result: 0
         };
@@ -60,10 +60,15 @@ class SingleBranch extends Component {
         console.log(raw)
         // let angleSum = this.state.angle * data.anglePrice;
         let angleSum = (this.state.angle > 4) ? ((this.state.angle - 4) * data.anglePrice) : 0;
-        let additional = raw + ((raw * (data.customStitch / 100)) + (raw * (data.stitchAlignment / 100)) + (raw * (data.multiMaterial / 100)))
+
+        let customStitch = this.state.customStitch === "yes" ? data.customStitch : 0;
+        let stitchAlignment = this.state.stitchAlignment === "yes" ? data.stitchAlignment : 0;
+        let multiMaterial = this.state.multiMaterial === "yes" ? data.multiMaterial : 0;
+
+        let additional = raw + ((raw * (customStitch / 100)) + (raw * (stitchAlignment / 100)) + (raw * (multiMaterial / 100)));
         let cut = this.state.cut * data.cutPrice;
         let curve = this.state.curve * data.curvePrice;
-        let res = additional + angleSum + cut + curve;
+        let res = additional + angleSum + cut + curve + data.packPrice;
         console.log(res);
         let result = Math.ceil(parseFloat(res));
         console.log(result);
@@ -159,25 +164,47 @@ class SingleBranch extends Component {
                             <div className="group">
                                 <label>Заданный шов {data.customStitch}:</label>
                                 <input
-                                    type="number"
-                                    value={this.state.customStitch}
+                                    type="radio"
+                                    value="no"
+                                    checked={this.state.customStitch === "no"}
+                                    onChange={this.onCustomStitchChange}
+                                />
+                                <input
+                                    type="radio"
+                                    value="yes"
+                                    checked={this.state.customStitch === "yes"}
                                     onChange={this.onCustomStitchChange}
                                 />
                             </div>
                             <div className="group">
                                 <label>Центровка швов {data.stitchAlignment}:</label>
                                 <input
-                                    type="number"
-                                    value={this.state.stitchAlignment}
+                                    type="radio"
+                                    value="no"
+                                    checked={this.state.stitchAlignment === "no"}
+                                    onChange={this.onStitchAlignmentChange}
+                                />
+                                <input
+                                    type="radio"
+                                    value="yes"
+                                    checked={this.state.stitchAlignment === "yes"}
                                     onChange={this.onStitchAlignmentChange}
                                 />
                             </div>
                             <div className="group">
                                 <label>Многофактурность {data.multiMaterial}:</label>
                                 <input
-                                    type="number"
-                                    value={this.state.multiMaterial}
-                                    onChange={this.onMultiMaterialChange} />
+                                    type="radio"
+                                    value="no"
+                                    checked={this.state.multiMaterial === "no"}
+                                    onChange={this.onMultiMaterialChange}
+                                />
+                                <input
+                                    type="radio"
+                                    value="yes"
+                                    checked={this.state.multiMaterial === "yes"}
+                                    onChange={this.onMultiMaterialChange} 
+                                />
                             </div>
                             <button>Рассчитать</button>
                             </form>

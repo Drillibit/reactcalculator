@@ -14,7 +14,8 @@ export const startAddBranch = (branchData = {}) => {
             customStitch = 0,
             stitchAlignment = 0,
             multiMaterial = 0,
-            curvePrice = 0
+            curvePrice = 0,
+            packPrice = 0
         } = branchData;
         const branch = {
             branchName,
@@ -23,7 +24,8 @@ export const startAddBranch = (branchData = {}) => {
             customStitch,
             stitchAlignment,
             multiMaterial,
-            curvePrice
+            curvePrice,
+            packPrice
         };
         let res = await axios.post('/api/branch', branch);
         dispatch(addBranch({ ...res.data }));
