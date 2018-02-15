@@ -9,7 +9,6 @@ import Root from './components/Root';
 import Menu from './components/Menu';
 import Form from './components/Form/FormMain';
 import FormMain from './components/Form/FormMain';
-import Calculator from './components/calculator/Calculator';
 import Branches from './components/branch/Branches';
 import SingleBranch from './components/branch/SingleBranch';
 
@@ -27,7 +26,6 @@ class App extends Component {
         <Switch>
           <Route exact path="/" component={Root} />
           <Route path="/form" component={FormMain} />
-          <Route path="/calculator" component={Calculator} />
           <Route path="/branch-form" component={BranchFormMain} />
           <Route path="/branches" component={Branches}/>
           <Route path="/branch/:id" component={SingleBranch}/>
