@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import StartAddUser from '../../actions/user';
+import {StartAddUser} from '../../actions/user';
 import FormRegister from './FormRegister';
 
 const Register = (props) => {

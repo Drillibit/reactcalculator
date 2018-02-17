@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 require('../models/user');
 
 const User = mongoose.model('users');
@@ -14,17 +14,13 @@ module.exports = (app) => {
             password: req.body.password,
             status: req.body.status
         });
-
-        bcrypt.genSalt(10, async (err, salt) => {
+        bcrypt.genSalt(10, (err, salt) => {
             bcrypt.hash(user.password, salt, (err, hash) => {
-                if(err) throw err;
                 user.password = hash;
-                try {
-                    await user.save();
-                    res.send(user);
-                } catch (err) {
-                    res.status(422).send(err);
-                }
+                user.save()
+                    .then(user => {
+                        res.send(user)
+                    })
             });
         });
     });

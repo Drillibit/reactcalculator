@@ -8,6 +8,7 @@ const Menu = (props) => {
             <Link to="/form">Form</Link>
             <Link to="/branch-form">Branch Form</Link>
             <Link to="/branches">Branches</Link>
+            <Link to="/register">Register</Link>
         </nav>
     );
 };

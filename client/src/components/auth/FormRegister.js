@@ -5,13 +5,17 @@ class FormRegister extends Component {
         super(props);
         this.state = {
             name: props.name ? props.user.name : '',
+            email: props.email ? props.user.email : '',
             password: props.password ? props.user.password : '',
             password2: props.password ? props.user.password : '',
             status: props.status ? props.user.status : '',
             error: ''
         };
     };
-    onNameChange = (e) => {
+    onEmailChange = (e) => {
+        const email = e.target.value;
+        this.setState(() => ({ email }));
+    }; onNameChange = (e) => {
         const name = e.target.value;
         this.setState(() => ({ name }));
     };
@@ -31,11 +35,12 @@ class FormRegister extends Component {
         e.preventDefault();
         if(!this.state.name || !this.state.password || !this.state.password2 || !this.state.status){
             this.setState(() => ({ error: 'Заполните все поля'}));
-        } else if (this.state.password === this.state.password2){
+        } else if (!(this.state.password === this.state.password2)){
             this.setState(() => ({ error: 'Пароли не совпадают'}));
         } else {
             this.setState(() => ({
                 name: this.state.name,
+                email: this.state.email,
                 password: this.state.password,
                 password2: this.state.password2,
                 status: this.state.status
@@ -57,6 +62,12 @@ class FormRegister extends Component {
                         value={this.state.name}
                         onChange={this.onNameChange}
                     />
+                    <label>Email</label>
+                    <input
+                        type="text"
+                        value={this.state.email}
+                        onChange={this.onEmailChange}
+                    />
                     <label>Статус</label>
                     <input 
                         type="text"
@@ -65,13 +76,13 @@ class FormRegister extends Component {
                     />
                     <label>Пароль</label>
                     <input 
-                        type="text"
+                        type="password"
                         value={this.state.password}
                         onChange={this.onPasswordChnage}
                     />
                     <label>Подтеврдите пароль</label>
                     <input
-                        type="text"
+                        type="password"
                         value={this.state.password2}
                         onChange={this.onPasswordChnage2}
                     />

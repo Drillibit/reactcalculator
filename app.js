@@ -12,7 +12,8 @@ mongoose.connect(keys.mongoURI)
     .catch(err => console.log(err));
 
 app.use(bodyParser.json());
-
+//User route
+require('./routes/auth')(app);
 //Material route
 require('./routes/material')(app);
 //Branch route
