@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const passport = require('passport');
 
 const keys = require('./config/keys');
 
@@ -18,6 +19,9 @@ require('./routes/auth')(app);
 require('./routes/material')(app);
 //Branch route
 require('./routes/branches')(app);
+
+//Passport config
+require('./config/passport')(passport);
 
 if(process.env.NODE_ENV === 'production'){
     app.use(express.static('client/build'));
