@@ -1,6 +1,7 @@
+import { Link } from 'react-router-dom';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import StartAddUser from '../../actions/user';
+import { StartLoginUser } from '../../actions/user';
 
 class Login extends Component {
     constructor(props){
@@ -28,13 +29,13 @@ class Login extends Component {
                 name: this.state.name,
                 password: this.state.password
             };
-            dispatch(StartAddUser(user));
+            this.props.dispatch(StartLoginUser(user));
         }
     };
     render(){
         return(
             <div>
-                <form>
+                <form onSubmit={this.onSubmit}>
                     <label>Имя</label>
                     <input
                         type="text"
@@ -47,7 +48,9 @@ class Login extends Component {
                         value={this.state.value}
                         onChange={this.onPasswordChange}
                     />
+                    <button>Login</button>
                 </form>
+                <Link to="/register">Register</Link>
             </div>
         );
     }

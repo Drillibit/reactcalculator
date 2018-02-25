@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import {StartAddUser} from '../../actions/user';
 import FormRegister from './FormRegister';
+import { Link } from 'react-router-dom';
 
 const Register = (props) => {
     return (
@@ -11,6 +12,7 @@ const Register = (props) => {
                     props.dispatch(StartAddUser(user));
                 }}
             />
+            <Link to="/">Login</Link>
         </div>
     );
 };

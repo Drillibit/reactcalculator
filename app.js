@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const passport = require('passport');
 
 const keys = require('./config/keys');
 
@@ -14,6 +15,7 @@ mongoose.connect(keys.mongoURI)
 app.use(bodyParser.json());
 //User route
 require('./routes/auth')(app);
+require('./utils/passport')(passport);
 //Material route
 require('./routes/material')(app);
 //Branch route

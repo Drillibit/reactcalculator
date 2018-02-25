@@ -1,10 +1,24 @@
 import axios from 'axios';
 
-const addUser = (user) => ({
+export const addUser = (user) => ({
     type: 'ADD_USER',
     user
 });
 
+export const StartLoginUser = (userLog = {}) => {
+    return async (dispatch) => {
+        const {
+            name = '',
+            password = ''
+        } = userLog;
+        const user = {
+            name,
+            password
+        };
+        let res = await axios.post('/api/users/login', user);
+        dispatch(addUser({...res.data}));
+    }
+}; 
 export const StartAddUser = (userData = {}) => {
     return async (dispatch) => {
        const {

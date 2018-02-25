@@ -12,6 +12,7 @@ import FormMain from './components/Form/FormMain';
 import Branches from './components/branch/Branches';
 import SingleBranch from './components/branch/SingleBranch';
 import Register from './components/auth/register';
+import Login from './components/auth/login';
 
 import BranchFormMain from './components/BranchForm/BranchFormMain';
 
@@ -25,7 +26,8 @@ class App extends Component {
         <div>
         <Menu />
         <Switch>
-          <Route exact path="/" component={Root} />
+          <Route exact path="/" component={Login} />
+          <Route path="/home" component={Root} />
           <Route path="/form" component={FormMain} />
           <Route path="/branch-form" component={BranchFormMain} />
           <Route path="/branches" component={Branches}/>
