@@ -1,5 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const cookieSession = require('cookie-session');
+const passport = require('passport');
 const bodyParser = require('body-parser');
 
 const keys = require('./config/keys');
@@ -13,10 +15,23 @@ mongoose.connect(keys.mongoURI)
 
 app.use(bodyParser.json());
 
+//Passport and cookies setup
+app.use(
+    cookieSession({
+        maxAge: 30 * 24 * 60 * 60 * 1000,
+        keys: [keys.cookieKey]
+    })
+);
+
+app.use(passport.initialize());
+app.use(passport.session());
+
 //Material route
 require('./routes/material')(app);
 //Branch route
 require('./routes/branches')(app);
+//Auth route
+require('./routes/auth')(app);
 
 if(process.env.NODE_ENV === 'production'){
     app.use(express.static('client/build'));
