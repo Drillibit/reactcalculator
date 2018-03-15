@@ -2,14 +2,16 @@ import { Link } from 'react-router-dom';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { StartLoginUser } from '../../actions/user';
+import { StartAddError } from '../../actions/flashErrors';
 
 class Login extends Component {
     constructor(props){
         super(props);
+        console.log(this.props);
         this.state = {
             name: '',
             password: '',
-            error: ''
+            errorText: '' 
         }
     };
     onNameChange = (e) => {
@@ -29,7 +31,13 @@ class Login extends Component {
                 name: this.state.name,
                 password: this.state.password
             };
+            const error = {
+                errorText: this.state.error
+            }
+
             this.props.dispatch(StartLoginUser(user));
+            this.props.dispatch(StartAddError(error));
+
         }
     };
     render(){
@@ -58,7 +66,8 @@ class Login extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        users: state.users
+        users: state.users,
+        error: state.error
     }
 }
 

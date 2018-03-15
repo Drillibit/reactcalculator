@@ -8,7 +8,8 @@ module.exports = (app) => {
     app.post('/api/users/login', (req, res, next) => {
         passport.authenticate('local', {
             successRedirect: '/home',
-            failureRedirect: '/'
+            failureRedirect: '/',
+            failureFlash: true
         })(req, res, next);
     });
     app.post('/api/users/register', (req, res) => {
@@ -28,4 +29,14 @@ module.exports = (app) => {
             });
         });
     });
+    passport.serializeUser((user, done) => {
+        done(null, user.id);
+    });
+
+    passport.deserializeUser((id, done) => {
+        User.findById(id, (err, user) => {
+            done(err, user);
+        });
+    });
+
 };
